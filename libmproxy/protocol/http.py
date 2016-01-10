@@ -300,9 +300,11 @@ class Http2SingleStreamLayer(_StreamingHttpLayer, threading.Thread):
     def read_response_headers(self):
         self.response_arrived.wait()
 
+        status_code = int(self.response_headers.get(':status', 502))
+
         return HTTPResponse(
             http_version=(2, 0),
-            status_code=int(self.response_headers.get(':status', 502)),
+            status_code=status_code,
             reason='',
             headers=self.response_headers,
             content=self.data,
@@ -312,6 +314,7 @@ class Http2SingleStreamLayer(_StreamingHttpLayer, threading.Thread):
 
     def read_response_body(self, request, response):
         self.data_finished.wait()
+        # TODO: make it really streaming
         return self.data
 
     def send_response(self, message):
