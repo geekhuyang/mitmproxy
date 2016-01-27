@@ -1,8 +1,8 @@
-from io import BytesIO
 from netlib.exceptions import HttpSyntaxException
 from netlib.http import http1
 from netlib.tcp import TCPClient
-from netlib.tutils import treq, raises
+from netlib.tutils import raises
+from netlib.tutils import treq
 import tutils
 import tservers
 
