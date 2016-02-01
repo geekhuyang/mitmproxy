@@ -88,6 +88,8 @@ class Script(object):
             Raises:
                 ScriptException if there was an exception.
         """
+        if not self.ns:
+            return None
         f = self.ns.get(name)
         if f:
             try:
